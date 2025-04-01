@@ -1,32 +1,10 @@
-# llm-mcp
-这是一个大模型MCP客户端和服务端开发的示例程序
-
-## mcp uv 创建 mcp-server 过程：
-
-1. 创建目录  `uv init mcp-server`
-
-2. 创建虚拟环境
-```shell
-cd mcp-server
-uv venv 
-source .venv/bin/activate  # 激活虚拟环境
-```
-
-3. 添加相关依赖库：
-```shell
-uv add mcp
-uv add mcp[cli]  # 后面运行测试 mcp dev xx.py 需要
-```
-
-4. 添加一个 server.py：
-
-```python
 from mcp.server.fastmcp import FastMCP
 import httpx
 import json
 
 """
 这是一个简单的MCP-Server示例程序，提供了三个工具方法。
+可以通过 `python mcp-client-server.py server-demo1.py` 来运行测试。
 """
 
 # Create an MCP server
@@ -85,27 +63,11 @@ async def fetch_weather(city: str) -> str:
 
 
 if __name__ == "__main__":
-    # 以标准 I/O 方式运行 MCP 服务器
+    """
+    以标准 I/O 方式运行 MCP 服务器
+    当指定 transport='stdio' 运行 MCP 服务器时，客户端必须在启动时同时启动当前这个脚本，否则无法顺利通信。
+    这是因为 stdio 模式是一种本地进程间通信（IPC，Inter-Process Communication）方式，
+    它需要服务器作为子进程运行，并通过标准输入输出（stdin/stdout）进行数据交换。
+    """
     mcp.run(transport='stdio')
 
-```
-
-5. 使用 mcp 内置的界面测试这个 server.py （这个依赖安装 mcp[cli]）
-
-```shell
-mcp dev server.py
-
-# 会自动一个http服务，默认地址是：http://localhost:5173/
-```
-
-6. 在 cherry-studio 中配置 MCP 服务器：
-```
-名称：uv-local-demo  # 随意
-类型：STDIO
-命令：/my-python/uv   # 注意命令这里如果使用 cherry-studio 自己安装的uv命令则无法启动，所以缓存自己python下安装的
-参数：
---directory
-/<your_path>/mcp-server
-run
-server.py
-```
