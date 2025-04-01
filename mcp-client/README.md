@@ -1,4 +1,8 @@
-# 这是一个自己实现的 MCP Client客户端。
+# 这是一个python实现的 MCP Client客户端。
+
+>
+> 代码整理自：https://deepseek.csdn.net/67e28cf28393e26e265938ce.html
+> 
 
 ### 提供了三个客户端示例程序：
 
