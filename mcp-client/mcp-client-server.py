@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 通过输入 quit 退出程序。
 
 运行这个MCP客户端：
-uv run mcp-client-server.py
+uv run mcp-client-server.py server-demo1.py
 """
 
 # 加载 .env 文件，确保 API Key 受到保护
